@@ -1,0 +1,130 @@
+pip install selenium
+
+#ログイン画面へ遷移
+from selenium import webdriver
+from time import sleep
+browser = webdriver.Chrome(executable_path="C:/Users/endes/work/chromedriver")
+browser.get('https://jp.hotels.com/?intlid=SIGNIN+%3A%3A+header_main_section')
+MAILADRESS = 'endescapedebakkori@yahoo.co.jp'
+PASSWORD = 'nukonuko2569'
+error_flg = False
+sleep(5)
+try:
+    login_button = browser.find_element_by_link_text('ログイン')
+    login_button.click()
+    sleep(1)
+except:
+    import traceback
+    traceback.print_exc()
+    
+#メールアドレス＿パスワードを入力→ログイン
+if error_flg is False:
+    try:
+        mailadress_input = browser.find_element_by_xpath('//*[@id="sign-in-email"]')
+        mailadress_input.send_keys(MAILADRESS)
+        sleep(1)
+ 
+        password_input = browser.find_element_by_xpath('//*[@id="sign-in-password"]')
+        password_input.send_keys(PASSWORD)
+        # ログインエラー時はパスの数字確認
+        userlogin_button = browser.find_element_by_xpath('//*[@id="main-content"]/div/div/div/div/div/div[2]/form/button')
+        userlogin_button.click()
+        sleep(1)
+        
+    except:
+        import traceback
+        traceback.print_exc()
+
+#場所指定→チェックイン日入力→チェックアウト日入力
+from selenium.webdriver.common.keys import Keys
+if error_flg is False:
+    SEARCHLOCATION = '東京　赤坂'
+    CHECKINDAY = '2020/04/29'
+    CHECKOUTDAY = '2020/05/02'
+    try:
+        searchlocation_input = browser.find_element_by_xpath('//*[@id="qf-0q-destination"]')
+        searchlocation_input.send_keys(SEARCHLOCATION)
+        sleep(1)
+        checkinday_input = browser.find_element_by_xpath('//*[@id="qf-0q-localised-check-in"]')
+        browser.find_element_by_xpath('//*[@id="qf-0q-localised-check-in"]').send_keys(Keys.CONTROL + "a")
+        browser.find_element_by_xpath('//*[@id="qf-0q-localised-check-in"]').send_keys(Keys.DELETE)
+        checkinday_input.send_keys(CHECKINDAY)
+        sleep(3)
+        checkoutday_input = browser.find_element_by_xpath('//*[@id="qf-0q-localised-check-out"]')
+        browser.find_element_by_xpath('//*[@id="qf-0q-localised-check-out"]').send_keys(Keys.CONTROL + "a")
+        browser.find_element_by_xpath('//*[@id="qf-0q-localised-check-out"]').send_keys(Keys.DELETE)
+        checkoutday_input.send_keys(CHECKOUTDAY)
+        sleep(3)
+    except:
+        import traceback
+        traceback.print_exc()
+
+#大人人数の変更2→1
+from selenium import webdriver
+from selenium.webdriver.support.select import Select
+if error_flg is False:
+    try:
+        element = browser.find_element_by_id("qf-0q-room-0-adults")
+        #ここの数字は人数指定
+        indexNum = 0
+        select = Select(element)
+        select.select_by_index(indexNum)
+        sleep(1)  
+    except:
+        import traceback
+        traceback.print_exc()
+        
+#検索ボタンをクリック→条件指定※Wifi_評価3以上に設定
+if error_flg is False:
+    try:
+        search_button = browser.find_element_by_xpath('//*[@id="hds-marquee"]/div[2]/div[1]/div/form/div[4]/button')
+        search_button.click()
+        sleep(10)
+        
+        wifi_select = browser.find_element_by_xpath('//*[@id="f-popular-527"]')
+        wifi_select.click()
+        sleep(3)
+        
+        evaluation_select3 = browser.find_element_by_xpath('//*[@id="f-star-rating-3"]')
+        evaluation_select3.click()
+        sleep(3)
+        
+        evaluation_select4 = browser.find_element_by_xpath('//*[@id="f-star-rating-4"]')
+        evaluation_select4.click()
+        sleep(3)
+        
+        evaluation_select5 = browser.find_element_by_xpath('//*[@id="filter-price"]/div[2]/div/div[2]/div[3]')
+        evaluation_select5.click()
+        sleep(3)
+        
+    except:
+        import traceback
+        traceback.print_exc()        
+        
+#料金設定_スライド操作対応
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+if error_flg is False:
+    try:
+        browser.implicitly_wait(10) 
+        width = main_select.size["width"]
+        height = main_select.size["height"]
+        slider = browser.find_element_by_class_name("widget-slider-handle")
+        move.click_and_hold(slider).move_by_offset(width/3, 0).release().perform()
+        sleep(3)
+    except:
+        import traceback
+        traceback.print_exc()
+        
+#検索ボタンクリック
+if error_flg is False:
+    try:
+    search_button = browser.find_element_by_link_text('ログイン')
+    search_button.click()
+    sleep(1)
+except:
+    import traceback
+    traceback.print_exc()        
+        
+    
+    
